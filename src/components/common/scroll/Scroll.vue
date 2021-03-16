@@ -1,0 +1,30 @@
+<template>
+  <div class="wrapper" ref="wrapper">
+      <slot></slot>
+  </div>
+</template>
+
+<script>
+  import BScroll1 from 'better-scroll'
+  export default {
+    name: "Scroll",
+    data(){
+      return {
+        scroll: null
+      }
+    },
+    mounted(){
+      this.scroll = new BScroll1(document.querySelector('.wrapper'),{
+
+      });
+
+      // scroll.on('refresh', () => {})
+    }
+  }
+</script>
+
+<style scoped>
+/*.content{*/
+  /*height: 100vh;*/
+/*}*/
+</style>

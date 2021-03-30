@@ -6,7 +6,7 @@
       </template>
     </nav-bar>
 
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <div>
         <home-swiper />
         <home-recommend-view/>
@@ -16,7 +16,7 @@
       </div>
 
     </scroll>
-
+    <back-top/>
   </div>
 </template>
 
@@ -29,6 +29,7 @@
   import TabControl from 'components/content/tabControl/TabControl'
   import GoodsList from 'components/content/goods/GoodsList'
   import Scroll from 'components/common/scroll/Scroll'
+  import BackTop from 'components/content/backTop/BackTop'
 
   import {getHomeMultidata , getHomeGoods} from "network/home";
 
@@ -64,7 +65,8 @@
       NavBar,
       TabControl,
       GoodsList,
-      Scroll
+      Scroll,
+      BackTop
     },
     computed: {
       ShowGoods(){
@@ -75,6 +77,20 @@
       this.getHomeGoods('pop');
       this.getHomeGoods('new');
       this.getHomeGoods('sell');
+
+      //监听item中图片加载成功
+
+      this.$bus.on('itemImageLoad', () => {
+        // const scroll = ref();
+        // console.log('----');
+        console.log(this.$refs.scroll.refresh());
+        // const refresh = () => {
+        //   // console.log(scroll.value);
+        // }
+      })
+      // console.log(this.$ref.scroll.Scroll);
+      // .refresh();
+
     },
     methods: {
       /**
@@ -102,7 +118,6 @@
         getHomeGoods(type,page).then(res => {
           this.goods[type].list.push(...res.data.list);
           this.goods[type].page = page;
-          console.log(this.goods.pop);
         })
       }
 
